@@ -3,76 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Question Paper</title>
+    <title>SSC Chemistry - Question Paper</title>
     <style>
         * { box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: #e0e0e0; margin: 0; padding: 20px; }
-        .paper-container { max-width: 900px; margin: 0 auto; background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .back-btn { background: #e0e0e0; border: none; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-size: 14px; margin-bottom: 20px; box-shadow: 3px 3px 6px rgba(0,0,0,0.1); }
-        .back-btn:hover { transform: scale(1.02); }
-        h1 { color: #2266cc; border-bottom: 3px solid #2266cc; padding-bottom: 10px; }
-        .paper-info { background: #f5f5f5; padding: 15px; border-radius: 10px; margin: 20px 0; }
-        .mcq-section, .creative-section { margin: 30px 0; }
-        .section-title { background: #2266cc; color: white; padding: 10px 15px; border-radius: 10px; margin-bottom: 20px; }
-        .question-card { background: #f9f9f9; margin: 15px 0; padding: 15px; border-radius: 10px; border-left: 4px solid #2266cc; }
-        .question-text { font-weight: bold; margin-bottom: 10px; }
-        .options { display: flex; flex-wrap: wrap; gap: 15px; margin: 10px 0; }
-        .option { background: white; padding: 8px 15px; border-radius: 25px; border: 1px solid #ddd; }
-        .answer { color: green; margin-top: 10px; font-size: 14px; }
-        .creative-card { background: #f0f7ff; margin: 15px 0; padding: 15px; border-radius: 10px; }
-        .stimulus { background: #e8f4e8; padding: 10px; border-radius: 8px; margin: 10px 0; }
-        .sub-q { margin: 8px 0; padding-left: 20px; }
-        @media (max-width: 600px) { .paper-container { padding: 15px; } .options { flex-direction: column; gap: 8px; } }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+        }
+        .paper-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .back-btn {
+            background: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+        .back-btn:hover {
+            transform: scale(1.02);
+            background: #d0d0d0;
+        }
+        h1 {
+            color: #1a1a2e;
+            border-bottom: 3px solid #2266cc;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .paper-info {
+            background: #e8f0fe;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 15px;
+        }
+        .mcq-section, .creative-section {
+            margin: 35px 0;
+        }
+        .section-title {
+            background: #2266cc;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .question-card {
+            background: #f9f9f9;
+            margin: 18px 0;
+            padding: 18px;
+            border-radius: 12px;
+            border-left: 5px solid #2266cc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 12px 0;
+        }
+        .option {
+            background: white;
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        .answer {
+            color: #2e7d32;
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            background: #e8f5e9;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .creative-card {
+            background: #f0f7ff;
+            margin: 18px 0;
+            padding: 18px;
+            border-radius: 12px;
+            border-left: 5px solid #ff9800;
+        }
+        .stimulus {
+            background: #fff3e0;
+            padding: 12px;
+            border-radius: 10px;
+            margin: 12px 0;
+            font-weight: 500;
+        }
+        .sub-q {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .sub-q:before {
+            content: "•";
+            color: #ff9800;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+            color: #666;
+        }
+        .error-box {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            .paper-container { padding: 15px; }
+            .options { flex-direction: column; gap: 8px; }
+            .option { text-align: center; }
+        }
     </style>
 </head>
 <body>
     <div class="paper-container">
-        <button class="back-btn" onclick="history.back()">← Back to Timeline</button>
+        <button class="back-btn" onclick="history.back()">← Back to Boards</button>
+        
         <h1 id="subject">Loading...</h1>
         <div class="paper-info" id="paperInfo"></div>
+        
         <div id="mcqContainer" class="mcq-section"></div>
         <div id="creativeContainer" class="creative-section"></div>
     </div>
+
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const paperId = urlParams.get('id');
+        
         if (!paperId) {
-            document.body.innerHTML = '<div class="paper-container"><h1>Error: No paper selected</h1><button onclick="history.back()">Go Back</button></div>';
+            document.body.innerHTML = '<div class="paper-container"><div class="error-box"><h2>❌ No Paper Selected</h2><p>Please go back and select a board.</p><button onclick="history.back()" class="back-btn">← Go Back</button></div></div>';
             return;
         }
+        
         fetch('questions.json')
-            .then(response => { if (!response.ok) throw new Error('JSON file not found'); return response.json(); })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: questions.json not found`);
+                }
+                return response.json();
+            })
             .then(data => {
-                let paper;
-                if (Array.isArray(data)) paper = data.find(p => p.id === paperId);
-                else if (data.papers) paper = data.papers.find(p => p.id === paperId);
-                else if (data.id === paperId) paper = data;
-                else paper = null;
-                if (!paper) throw new Error('Paper not found with ID: ' + paperId);
+                let paper = null;
+                
+                if (Array.isArray(data)) {
+                    paper = data.find(p => p.id === paperId);
+                } else if (data.papers) {
+                    paper = data.papers.find(p => p.id === paperId);
+                } else if (data.id === paperId) {
+                    paper = data;
+                }
+                
+                if (!paper) {
+                    throw new Error(`Paper "${paperId}" not found in questions.json`);
+                }
+                
                 displayPaper(paper);
             })
             .catch(error => {
                 console.error('Error:', error);
-                document.getElementById('subject').innerHTML = 'Error Loading Paper';
-                document.getElementById('paperInfo').innerHTML = `<div style="color: red; padding: 20px;"><h3>Could not load question paper</h3><p>Make sure questions.json exists and contains the paper with ID: ${paperId}</p><button onclick="history.back()">← Go Back</button></div>`;
+                document.getElementById('subject').innerHTML = '❌ Error Loading Paper';
+                document.getElementById('paperInfo').innerHTML = `
+                    <div class="error-box">
+                        <h3>⚠️ Could Not Load Question Paper</h3>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p>Make sure <code>questions.json</code> is in the same folder as this page.</p>
+                        <button onclick="history.back()" class="back-btn">← Go Back</button>
+                    </div>
+                `;
+                document.getElementById('mcqContainer').innerHTML = '';
+                document.getElementById('creativeContainer').innerHTML = '';
             });
+        
         function displayPaper(paper) {
-            document.getElementById('subject').innerText = paper.subject || 'Question Paper';
-            document.getElementById('paperInfo').innerHTML = `<strong>Board:</strong> ${paper.board} | <strong>Year:</strong> ${paper.year} | <strong>Type:</strong> ${paper.examType || 'MCQ + Creative'} | <strong>Total Marks:</strong> ${paper.totalMarks || '100'} | <strong>Time:</strong> ${paper.time || '2 hours 35 min'}`;
-            if (paper.mcqSection && paper.mcqSection.questions) {
-                let mcqHtml = `<div class="section-title">📝 Multiple Choice Questions (MCQ) <span style="font-size: 14px; float: right;">Marks: ${paper.mcqSection.marksPerQuestion || 1} each | Total: ${paper.mcqSection.totalQuestions || paper.mcqSection.questions.length}</span></div>`;
+            document.getElementById('subject').innerHTML = `📖 ${paper.subject || 'Chemistry'} ${paper.year || ''}`;
+            document.getElementById('paperInfo').innerHTML = `
+                <strong>🏫 Board:</strong> ${paper.board} &nbsp;|&nbsp;
+                <strong>📅 Year:</strong> ${paper.year} &nbsp;|&nbsp;
+                <strong>📝 Type:</strong> ${paper.examType || 'MCQ + Creative'} &nbsp;|&nbsp;
+                <strong>⭐ Total Marks:</strong> ${paper.totalMarks || '100'} &nbsp;|&nbsp;
+                <strong>⏱️ Time:</strong> ${paper.time || '2 hours 35 min'}
+            `;
+            
+            // MCQ Section
+            if (paper.mcqSection && paper.mcqSection.questions && paper.mcqSection.questions.length > 0) {
+                let mcqHtml = `<div class="section-title">📝 Multiple Choice Questions (MCQ) <span style="font-size: 14px; float: right;">${paper.mcqSection.marksPerQuestion || 1} mark each | Total: ${paper.mcqSection.totalQuestions || paper.mcqSection.questions.length}</span></div>`;
+                
                 paper.mcqSection.questions.forEach(q => {
-                    mcqHtml += `<div class="question-card"><div class="question-text">${q.number}. ${q.question}</div><div class="options">${q.options.map(opt => `<span class="option">${opt}</span>`).join('')}</div><div class="answer">✓ Answer: ${q.answer} ${q.answerLetter ? '(' + q.answerLetter + ')' : ''}</div></div>`;
+                    mcqHtml += `
+                        <div class="question-card">
+                            <div class="question-text">${q.number}. ${q.question}</div>
+                            <div class="options">
+                                ${q.options.map(opt => `<span class="option">${opt}</span>`).join('')}
+                            </div>
+                            <div class="answer">✓ <strong>Answer:</strong> ${q.answer} ${q.answerLetter ? '(' + q.answerLetter + ')' : ''}</div>
+                        </div>
+                    `;
                 });
                 document.getElementById('mcqContainer').innerHTML = mcqHtml;
-            } else { document.getElementById('mcqContainer').innerHTML = '<div class="section-title">📝 MCQ Section</div><p>No MCQ data available.</p>'; }
-            if (paper.creativeSection && paper.creativeSection.questions) {
-                let creativeHtml = `<div class="section-title">✍️ Creative Questions (CQ) <span style="font-size: 14px; float: right;">Answer any ${paper.creativeSection.answerAny || 5} out of ${paper.creativeSection.totalQuestions || 8}</span></div>`;
+            } else {
+                document.getElementById('mcqContainer').innerHTML = '<div class="section-title">📝 MCQ Section</div><p style="padding: 20px; text-align: center; background: #f5f5f5; border-radius: 12px;">No MCQ questions available for this paper.</p>';
+            }
+            
+            // Creative Section
+            if (paper.creativeSection && paper.creativeSection.questions && paper.creativeSection.questions.length > 0) {
+                let creativeHtml = `<div class="section-title">✍️ Creative Questions (CQ) <span style="font-size: 14px; float: right;">Answer any ${paper.creativeSection.answerAny || 5} out of ${paper.creativeSection.totalQuestions || paper.creativeSection.questions.length}</span></div>`;
+                
                 paper.creativeSection.questions.forEach(q => {
-                    creativeHtml += `<div class="creative-card"><div class="question-text">Question ${q.number}:</div><div class="stimulus">${q.question}</div><div style="margin-top: 10px; font-weight: bold;">Sub-questions:</div><div>${q.subQuestions.map((sq, idx) => `<div class="sub-q">${String.fromCharCode(97+idx)}. ${sq}</div>`).join('')}</div></div>`;
+                    creativeHtml += `
+                        <div class="creative-card">
+                            <div class="question-text">📌 Question ${q.number}:</div>
+                            <div class="stimulus">${q.question}</div>
+                            <div style="margin-top: 12px; font-weight: 600;">Sub-questions:</div>
+                            <div>
+                                ${q.subQuestions.map((sq, idx) => `<div class="sub-q">${String.fromCharCode(97+idx)}. ${sq}</div>`).join('')}
+                            </div>
+                        </div>
+                    `;
                 });
                 document.getElementById('creativeContainer').innerHTML = creativeHtml;
-            } else { document.getElementById('creativeContainer').innerHTML = '<div class="section-title">✍️ Creative Section</div><p>No creative questions available.</p>'; }
+            } else {
+                document.getElementById('creativeContainer').innerHTML = '<div class="section-title">✍️ Creative Section</div><p style="padding: 20px; text-align: center; background: #f5f5f5; border-radius: 12px;">No creative questions available for this paper.</p>';
+            }
         }
     </script>
 </body>
